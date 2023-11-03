@@ -11,11 +11,14 @@ class SerializeVault{
         this._historicArray = [];
     }
 
-    salvarCofrinho(cofrinho:Vault, nomeArquivo:string){
-      this._writeFile("save",nomeArquivo,cofrinho).then((value:Vault) =>{
+    async salvarCofrinho(cofrinho:Vault, nomeArquivo:string){
+      return this._writeFile("save",nomeArquivo,cofrinho)
+      .then((value:Vault) =>{
             this._historicArray.push(value);
+            return cofrinho;
        }).catch((err) =>{
             console.error(err);
+            return cofrinho;
        });
     }
 

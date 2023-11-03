@@ -31,7 +31,6 @@ class Vault {
                 data._array.forEach((moedaData: Moeda) => {
                     const moeda = new Moeda(moedaData.valor, moedaData.nome);
                     this._array.push(moeda);
-                    console.log(this._array);
                 });
             }
         }
@@ -63,7 +62,7 @@ class Vault {
                 mapFrequencia.set(moeda.getNome(), 1);
             }
             else{
-                let acc:any = mapFrequencia.get(moeda.getNome());
+                let acc:number = <number> mapFrequencia.get(moeda.getNome());
                 mapFrequencia.set(moeda.getNome(), acc + 1)
             }
         })

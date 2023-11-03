@@ -111,8 +111,9 @@ describe('Testando leitura e escrita assincrona', () => {
         cofre.adicionar(centavos50);
     })
 
-    test('Escrita de um cofre', () => {
-        serializer.salvarCofrinho(cofre,"testando")
+    test('Escrita de um cofre', async () => {
+        let cofreEscrito = await serializer.salvarCofrinho(cofre,"testando")
+        expect(cofreEscrito).toEqual(cofre);
     })
 
     test('Leitura de um cofre', async () => {
