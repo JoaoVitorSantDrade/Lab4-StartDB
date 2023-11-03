@@ -4,7 +4,7 @@
 
 
 import {Vault, Moeda} from "../src/modules/entidades"
-
+import {SerializeVault} from "../src/modules/persistencia"
 
 describe('testando a implementacao do cofrinho (Questão 2)', () => {
     
@@ -39,7 +39,7 @@ describe('testando a implementacao do cofrinho (Questão 2)', () => {
 
     test('Serializando cofrinho para Json', () => {
         cofre.adicionar(centavos20);
-        let expectedString:string = "{\"moedas\":[{\"valor\":0.2,\"nome\":\"20 Centavos\"}],\"total\":0.2}";
+        let expectedString:string = "{\"_array\":[{\"valor\":0.2,\"nome\":\"20 Centavos\"}]}";
         expect(JSON.stringify(cofre.toJson())).toEqual(expectedString);
     })
 
@@ -88,3 +88,36 @@ describe('testando a implementação de cofrinho (Questão 3)', () => {
     })
 });
 
+describe('Testando leitura e escrita assincrona', () => {
+   
+    let cofre:Vault;
+    let centavos20:Moeda;
+    let centavos50:Moeda;
+    let centavos10:Moeda;
+    let serializer:SerializeVault;
+
+    beforeAll(() => {
+        serializer = new SerializeVault();
+        cofre = new Vault();
+        centavos20 = new Moeda(0.2,"20 Centavos");
+        centavos50 = new Moeda(0.5,"50 Centavos");
+        centavos10 = new Moeda(0.1,"10 Centavos");
+
+    })
+
+    beforeEach(() => { 
+        cofre.adicionar(centavos10);
+        cofre.adicionar(centavos20);
+        cofre.adicionar(centavos50);
+    })
+
+    test('Escrita de um cofre', () => {
+        serializer.salvarCofrinho(cofre,"testando")
+    })
+
+    test('Leitura de um cofre', async () => {
+        serializer.salvarCofrinho(cofre,"testando")
+        let cofreLido:Vault = await serializer.lerCofrinho("testando");
+        expect(cofreLido).toEqual(cofre);
+    })
+});

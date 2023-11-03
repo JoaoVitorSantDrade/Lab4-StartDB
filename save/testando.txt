@@ -1,0 +1,1 @@
+{"_array":[{"valor":0.1,"nome":"10 Centavos"},{"valor":0.2,"nome":"20 Centavos"},{"valor":0.5,"nome":"50 Centavos"},{"valor":0.1,"nome":"10 Centavos"},{"valor":0.2,"nome":"20 Centavos"},{"valor":0.5,"nome":"50 Centavos"}]}

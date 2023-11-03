@@ -24,9 +24,19 @@ class Moeda {
 
 class Vault {
     _array: Moeda[];
-    constructor(){
+    constructor(data?:Vault){
         this._array = [];
+        if (data) {
+            if (data._array) {
+                data._array.forEach((moedaData: Moeda) => {
+                    const moeda = new Moeda(moedaData.valor, moedaData.nome);
+                    this._array.push(moeda);
+                    console.log(this._array);
+                });
+            }
+        }
     }
+    
 
     adicionar(m:Moeda){
         this._array.push(m);
@@ -62,8 +72,7 @@ class Vault {
 
     toJson(){
        return {
-            moedas: this._array.map((moeda) => moeda.toJson()),
-            total: this.calcularTotal(),
+            _array: this._array,
        }
     }
 
